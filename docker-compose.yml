@@ -33,11 +33,11 @@ services:
       - evelytics-network
 
   app:
-    image: python:3.11-alpine
+    image: python:3-alpine
     container_name: evelytics-app
     working_dir: /app
     volumes:
-      - .:/app
+      - ./home/kleanzy/evelytics/app:/app
     command: python main.py
     environment:
       - PYTHONUNBUFFERED=1
@@ -47,7 +47,7 @@ services:
     networks:
       - evelytics-network
 
-networks:
+networks:c
   evelytics-network:
     driver: bridge
 
