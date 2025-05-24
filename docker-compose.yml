@@ -13,6 +13,8 @@ services:
     ports:
       - "5432:5432"
     restart: unless-stopped
+    networks:
+      - evelytics-network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -27,6 +29,27 @@ services:
     restart: unless-stopped
     depends_on:
       - postgres
+    networks:
+      - evelytics-network
+
+  app:
+    image: python:3.11-alpine
+    container_name: evelytics-app
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: python main.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    depends_on:
+      - postgres
+    networks:
+      - evelytics-network
+
+networks:
+  evelytics-network:
+    driver: bridge
 
 volumes:
   pgdata:
