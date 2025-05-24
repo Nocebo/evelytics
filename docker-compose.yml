@@ -37,12 +37,13 @@ services:
     container_name: evelytics-app
     working_dir: /app
     volumes:
-      - ./home/kleanzy/evelytics/app:/app
-
+      - .:/app
+    # Keep container running for development
+    command: tail -f /dev/null
     environment:
       - PYTHONUNBUFFERED=1
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
-    depends_on:
+        depends_on:
       - postgres
     networks:
       - evelytics-network
