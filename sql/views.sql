@@ -1,0 +1,1 @@
+select * from entity_relation;

@@ -48,6 +48,11 @@ update entity_relation_constraints
 set active = true
 where parent_type_name = 'production_line' and child_type_name = 'production_line';
 
+update entity_relation_constraints
+set active = true
+where parent_type_name = 'production_line' and child_type_name = 'workcenter';
+
+
 select * from entity_type;
 select * from entity;
 
@@ -61,7 +66,7 @@ select * from entity_relation_constraints;
 
 -- Example of a relation that works and one that should not work
 insert into entity_relation (parent_entity, child_entity) values
-(get_uuid_entity_by_entity_name('Workcenter1'), get_uuid_entity_by_entity_name('Machine1'));
+(get_uuid_entity_by_entity_name('ProductionLine1'), get_uuid_entity_by_entity_name('Workcenter1'));
 
 insert into entity_relation (parent_entity, child_entity) values
 (get_uuid_entity_by_entity_name('TactCircuit1'), get_uuid_entity_by_entity_name('ProductionLine1'));
