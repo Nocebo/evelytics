@@ -62,6 +62,20 @@ services:
     networks:
       - evelytics-network
 
+  rancher:
+    image: rancher/rancher:latest
+    container_name: rancher-server
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - rancher-data:/var/lib/rancher
+    environment:
+      - CATTLE_BOOTSTRAP_PASSWORD=admin  # Change this for security
+    networks:
+      - evelytics-network
+
 networks:
   evelytics-network:
     driver: bridge
@@ -71,3 +85,4 @@ volumes:
   pgadmin_data:
   portainer_data:
     external: true
+  rancher-data:
